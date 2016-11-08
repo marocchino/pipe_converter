@@ -14,10 +14,14 @@ defmodule PipeConverter.CLI do
   defp response({opts, " " <> tail}), do: " " <> response({opts, tail})
   defp response({opts, "\t" <> tail}), do: "\t" <> response({opts, tail})
   defp response({opts, code}) do
-    if opts[:revert] do
-      code |> to_tree |> to_braces
-    else
-      code |> to_tree |> to_pipe
+    cond do
+      String.contains?(code, "=") ->
+        [head, tail] = String.split(code, "=")
+        head <> "=" <> response({opts, tail})
+      opts[:revert] ->
+        code |> to_tree |> to_braces
+      :else ->
+        code |> to_tree |> to_pipe
     end
   end
 end

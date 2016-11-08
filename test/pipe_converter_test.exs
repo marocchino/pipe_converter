@@ -14,7 +14,7 @@ defmodule PipeConverterTest do
   end
 
   describe "to_pipe/1" do
-    test "tree can convert to braces" do
+    test "tree can convert to pipes" do
       assert to_pipe("outer") == "outer"
       assert to_pipe(["outer"]) == "outer()"
       assert to_pipe(["outer", "arg1", "arg2"]) == "arg1 |> outer(arg2)"
