@@ -1,5 +1,9 @@
 # PipeConverter
 
+## Demo
+
+[![asciicast](https://asciinema.org/a/7345c7n8th9jdbq4n39lrb409.png)](https://asciinema.org/a/7345c7n8th9jdbq4n39lrb409)
+
 ## Config
 
 ### Vim
