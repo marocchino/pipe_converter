@@ -1,24 +1,22 @@
 # PipeConverter
 
-**TODO: Add description**
+## Usage
 
-## Installation
+```bash
+$ ./pipe_converter "a(b, c, d)"
+b |> a(c, d)
+$ ./pipe_converter --revert "b |> a |> c(d)"
+c(a(b), d)
+```
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+## Build
 
-  1. Add `pipe_converter` to your list of dependencies in `mix.exs`:
+```bash
+$ mix escript.build
+```
 
-    ```elixir
-    def deps do
-      [{:pipe_converter, "~> 0.1.0"}]
-    end
-    ```
+## Test
 
-  2. Ensure `pipe_converter` is started before your application:
-
-    ```elixir
-    def application do
-      [applications: [:pipe_converter]]
-    end
-    ```
-
+```bash
+$ mix test
+```
