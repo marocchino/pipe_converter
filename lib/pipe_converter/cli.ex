@@ -11,6 +11,8 @@ defmodule PipeConverter.CLI do
     {opts, code}
   end
 
+  defp response({opts, " " <> tail}), do: " " <> response({opts, tail})
+  defp response({opts, "\t" <> tail}), do: "\t" <> response({opts, tail})
   defp response({opts, code}) do
     if opts[:revert] do
       code |> to_tree |> to_braces

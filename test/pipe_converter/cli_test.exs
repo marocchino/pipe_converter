@@ -11,5 +11,16 @@ defmodule PipeConverter.CLITest do
       assert capture_io(fn -> main(["outer(inner)"]) end) ==
              "inner |> outer\n"
     end
+
+    test "remain leading spaces" do
+      assert capture_io(fn -> main(["--revert","    inner |> outer"]) end) ==
+             "    outer(inner)\n"
+      assert capture_io(fn -> main(["    outer(inner)"]) end) ==
+             "    inner |> outer\n"
+      assert capture_io(fn -> main(["--revert","\tinner |> outer"]) end) ==
+             "\touter(inner)\n"
+      assert capture_io(fn -> main(["\touter(inner)"]) end) ==
+             "\tinner |> outer\n"
+    end
   end
 end
