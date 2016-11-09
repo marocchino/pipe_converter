@@ -28,6 +28,14 @@ defmodule PipeConverter.CLITest do
              "name = outer(inner)\n"
       assert capture_io(fn -> main(["name = outer(inner)"]) end) ==
              "name = inner |> outer\n"
+      assert capture_io(fn -> main(["--revert","name <- inner |> outer"]) end) ==
+             "name <- outer(inner)\n"
+      assert capture_io(fn -> main(["name <- outer(inner)"]) end) ==
+             "name <- inner |> outer\n"
+      assert capture_io(fn -> main(["--revert","name -> inner |> outer"]) end) ==
+             "name -> outer(inner)\n"
+      assert capture_io(fn -> main(["name -> outer(inner)"]) end) ==
+             "name -> inner |> outer\n"
     end
   end
 end

@@ -18,6 +18,12 @@ defmodule PipeConverter.CLI do
       String.contains?(code, "=") ->
         [head, tail] = String.split(code, "=")
         head <> "=" <> response({opts, tail})
+      String.contains?(code, "<-") ->
+        [head, tail] = String.split(code, "<-")
+        head <> "<-" <> response({opts, tail})
+      String.contains?(code, "->") ->
+        [head, tail] = String.split(code, "->")
+        head <> "->" <> response({opts, tail})
       opts[:revert] ->
         code |> to_tree |> to_braces
       :else ->

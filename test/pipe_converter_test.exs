@@ -43,6 +43,9 @@ defmodule PipeConverterTest do
 
     test "1 depth pipe" do
       assert to_tree("arg |> outer") == ["outer", "arg"]
+      assert to_tree("\"arg, string\" |> outer") == ["outer", "\"arg, string\""]
+      assert to_tree("'arg, string' |> outer") == ["outer", "'arg, string'"]
+      assert to_tree("[1, 2] |> outer") == ["outer", "[1, 2]"]
       assert to_tree("arg1 |> outer(arg2)") == ["outer", "arg1", "arg2"]
       assert to_tree("arg1 |> outer(arg2, arg3)") ==
              ["outer", "arg1", "arg2", "arg3"]
