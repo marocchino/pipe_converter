@@ -46,6 +46,7 @@ defmodule PipeConverterTest do
       assert to_tree("\"arg, string\" |> outer") == ["outer", "\"arg, string\""]
       assert to_tree("'arg, string' |> outer") == ["outer", "'arg, string'"]
       assert to_tree("[1, 2] |> outer") == ["outer", "[1, 2]"]
+      assert to_tree("{1, method()} |> outer") == ["outer", "{1, method()}"]
       assert to_tree("arg1 |> outer(arg2)") == ["outer", "arg1", "arg2"]
       assert to_tree("arg1 |> outer(arg2, arg3)") ==
              ["outer", "arg1", "arg2", "arg3"]
@@ -71,6 +72,9 @@ defmodule PipeConverterTest do
   describe "split_args/1" do
     test "split args" do
       assert split_args("a(b, c(d)), b(), c") == ["a(b, c(d))", "b()", "c"]
+      assert split_args("[a(), 'aaaa'], {:tuple, 1}") ==
+        ["[a(), 'aaaa']", "{:tuple, 1}"]
+      assert split_args("[a(), b()]") == ["[a(), b()]"]
       assert split_args("") == []
     end
   end

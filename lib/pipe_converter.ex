@@ -31,10 +31,11 @@ defmodule PipeConverter do
       end
     else
       map =
-        Regex.named_captures(~r/(?<method>[^(]+)(?<brakets>\((?<args>.*)\))?/,
-                             code)
+        Regex.named_captures(
+          ~r/(?<method>[^()]+)(?<brakets>\((?<args>.*)\))?$/,
+          code)
       case map["brakets"] do
-        "" -> map["method"]
+        "" -> code
         "()" -> [map["method"]]
         _ ->
           tail = map["args"] |> split_args |> Enum.map(&to_tree/1)
@@ -66,8 +67,14 @@ defmodule PipeConverter do
   end
 
   defp closed?(str) do
-    graphemes = String.graphemes(str)
-    Enum.count(graphemes, fn(x) -> x == "(" end) ==
-      Enum.count(graphemes, fn(x) -> x == ")" end)
+    count(str, "(") == count(str, ")") and
+      count(str, "[") == count(str, "]") and
+      count(str, "{") == count(str, "}")
+  end
+
+  defp count(str, c) do
+    str
+    |> String.graphemes
+    |> Enum.count(fn(x) -> x == c end)
   end
 end
