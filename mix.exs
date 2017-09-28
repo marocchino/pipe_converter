@@ -45,6 +45,6 @@ defmodule PipeConverter.Mixfile do
      files: ["lib", "plugin", "mix.exs", "README.md", "LICENSE"],
      maintainers: ["marocchino"],
      licenses: ["MIT"],
-     links: %{"GitHub" => "https://github.com/marocchino/ffaker"}]
+     links: %{"GitHub" => "https://github.com/marocchino/pipe_converter"}]
   end
 end
