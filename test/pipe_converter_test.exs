@@ -18,7 +18,7 @@ defmodule PipeConverterTest do
       assert to_pipe("outer") == "outer"
       assert to_pipe(["outer"]) == "outer()"
       assert to_pipe(["outer", "arg1", "arg2"]) == "arg1 |> outer(arg2)"
-      assert to_pipe(["outer", ["inner", "arg1"]]) == "arg1 |> inner |> outer"
+      assert to_pipe(["outer", ["inner", "arg1"]]) == "arg1 |> inner() |> outer()"
       assert to_pipe(["outer", ["inner", "arg1", "arg2"], "inner2", ["inner3"]]) ==
              "arg1 |> inner(arg2) |> outer(inner2, inner3())"
     end

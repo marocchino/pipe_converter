@@ -15,7 +15,7 @@ defmodule PipeConverter do
       [method] ->
         "#{method}()"
       [method, arg1] ->
-        "#{to_pipe(arg1)} |> #{method}"
+        "#{to_pipe(arg1)} |> #{method}()"
       [method, arg1 | args] ->
         rest_args = args |> Enum.map(&to_pipe/1) |> Enum.join(", ")
         "#{to_pipe(arg1)} |> #{method}(#{rest_args})"
