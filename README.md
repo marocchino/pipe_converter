@@ -12,7 +12,14 @@
 
 ```viml
 " Add this line to your .vimrc file
+" Vundle
 Plugin 'marocchino/pipe_converter'
+
+" Plug
+Plug 'marocchino/pipe_converter'
+
+let g:pipe_converter_command = "~/.vim/plugged/pipe_converter/pipe_converter"
+
 
 " Change it your own keymap.
 nnoremap ec :call PipeConvert()<CR>
