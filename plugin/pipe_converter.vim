@@ -4,14 +4,14 @@ endif
 
 function! PipeConvert()
   let s:line = substitute(getline('.'), '"', '\\"', 'g')
-  let s:ret = system(g:pipe_converter_command . " \"". s:line. "\"")
+  let s:ret = system(g:pipe_converter_command . " \"". s:line. "\" 2>/dev/null")
   let s:trimed = substitute(s:ret, '\n\+', '', 'g')
   call setline('.', s:trimed)
 endfunction
 
 function! PipeRevert()
   let s:line = substitute(getline('.'), '"', '\\"', 'g')
-  let s:ret = system(g:pipe_converter_command . " --revert \"". s:line. "\"")
+  let s:ret = system(g:pipe_converter_command . " --revert \"". s:line. "\" 2>/dev/null")
   let s:trimed = substitute(s:ret, '\n\+', '', 'g')
   call setline('.', s:trimed)
 endfunction

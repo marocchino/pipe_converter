@@ -1,33 +1,25 @@
 defmodule PipeConverter.CLI do
-  import PipeConverter
+  @moduledoc """
+  Parse options and run script
+  """
+  alias PipeConverter.Tree
 
   def main(args \\ []) do
-    args |> parse_args |> response |> IO.puts
+    parse_args(args) |> response() |> IO.puts()
   end
 
   defp parse_args(args) do
-    {opts, params, _} = OptionParser.parse(args, switches: [revert: :boolean])
-    [code | _] = params
+    {opts, [code | _], _} = OptionParser.parse(args, switches: [revert: :boolean])
     {opts, code}
   end
 
-  defp response({opts, " " <> tail}), do: " " <> response({opts, tail})
-  defp response({opts, "\t" <> tail}), do: "\t" <> response({opts, tail})
-  defp response({opts, code}) do
-    cond do
-      String.contains?(code, "=") ->
-        [head, tail] = String.split(code, "=")
-        head <> "=" <> response({opts, tail})
-      String.contains?(code, "<-") ->
-        [head, tail] = String.split(code, "<-")
-        head <> "<-" <> response({opts, tail})
-      String.contains?(code, "->") ->
-        [head, tail] = String.split(code, "->")
-        head <> "->" <> response({opts, tail})
-      opts[:revert] ->
-        code |> to_tree |> to_braces
-      :else ->
-        code |> to_tree |> to_pipe
-    end
+  defp response({[revert: true], code}) do
+    {l, c} = PipeConverter.trim_leading("", code)
+    l <> Tree.to_braces(Tree.from_code(c))
+  end
+
+  defp response({_, code}) do
+    {l, c} = PipeConverter.trim_leading("", code)
+    l <> Tree.to_pipe(Tree.from_code(c))
   end
 end

@@ -2,15 +2,17 @@ defmodule PipeConverter.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :pipe_converter,
-     version: "0.1.0",
-     escript: escript,
-     elixir: "~> 1.3",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps(),
-     package: package(),
-     description: description()]
+    [
+      app: :pipe_converter,
+      version: "0.1.0",
+      escript: escript(),
+      elixir: "~> 1.3",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      deps: deps(),
+      package: package(),
+      description: description()
+    ]
   end
 
   def application do
@@ -18,7 +20,11 @@ defmodule PipeConverter.Mixfile do
   end
 
   defp deps do
-    []
+    [
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
+      {:credo, "~> 1.5.0", only: [:dev, :test], runtime: false},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
+    ]
   end
 
   defp escript do
@@ -41,10 +47,12 @@ defmodule PipeConverter.Mixfile do
   end
 
   defp package do
-    [name: :pipe_converter,
-     files: ["lib", "plugin", "mix.exs", "README.md", "LICENSE"],
-     maintainers: ["marocchino"],
-     licenses: ["MIT"],
-     links: %{"GitHub" => "https://github.com/marocchino/pipe_converter"}]
+    [
+      name: :pipe_converter,
+      files: ["lib", "plugin", "mix.exs", "README.md", "LICENSE"],
+      maintainers: ["marocchino"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/marocchino/pipe_converter"}
+    ]
   end
 end
