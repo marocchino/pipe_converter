@@ -12,7 +12,7 @@ defmodule PipeConverter do
       iex> replace("name -> func(arg),", fn _ -> "<<code>>" end)
       "name -> <<code>>,"
   """
-  @spec replace(String.t(), Function.t()) :: String.t()
+  @spec replace(String.t(), (String.t() -> String.t())) :: String.t()
   def replace(code, callback) do
     Regex.replace(@regex, code, callback)
   end
