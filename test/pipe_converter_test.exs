@@ -1,5 +1,4 @@
 defmodule PipeConverterTest do
   use ExUnit.Case
-  import PipeConverter
-  doctest PipeConverter
+  doctest PipeConverter, import: true
 end

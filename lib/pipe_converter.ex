@@ -3,26 +3,17 @@ defmodule PipeConverter do
   No content here
   """
 
-  @spec trim_leading(String.t(), String.t()) :: {String.t(), String.t()}
-  def trim_leading(leading, " " <> tail), do: trim_leading(leading <> " ", tail)
-  def trim_leading(leading, "\t" <> tail), do: trim_leading(leading <> "\t", tail)
+  @regex ~r/(?:(?:\w+|"\w+"|%?{.+}|\[.+\])\s+\|>\s+)?[.\w]+\(.*?\)(?:\s+\|>\s+[.\w]+\(.*?\))*/
+  @doc """
+  Replace relative code with callback
 
-  def trim_leading(leading, code) do
-    cond do
-      String.contains?(code, "=") ->
-        [head, tail] = String.split(code, "=")
-        trim_leading(leading <> head <> "=", tail)
+  ## Examples
 
-      String.contains?(code, "<-") ->
-        [head, tail] = String.split(code, "<-")
-        trim_leading(leading <> head <> "<-", tail)
-
-      String.contains?(code, "->") ->
-        [head, tail] = String.split(code, "->")
-        trim_leading(leading <> head <> "->", tail)
-
-      :else ->
-        {leading, code}
-    end
+      iex> replace("name -> func(arg),", fn _ -> "<<code>>" end)
+      "name -> <<code>>,"
+  """
+  @spec replace(String.t(), Function.t()) :: String.t()
+  def replace(code, callback) do
+    Regex.replace(@regex, code, callback)
   end
 end

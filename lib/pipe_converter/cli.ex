@@ -14,12 +14,10 @@ defmodule PipeConverter.CLI do
   end
 
   defp response({[revert: true], code}) do
-    {l, c} = PipeConverter.trim_leading("", code)
-    l <> Tree.to_braces(Tree.from_code(c))
+    PipeConverter.replace(code, &Tree.to_braces(Tree.from_code(&1)))
   end
 
   defp response({_, code}) do
-    {l, c} = PipeConverter.trim_leading("", code)
-    l <> Tree.to_pipe(Tree.from_code(c))
+    PipeConverter.replace(code, &Tree.to_pipe(Tree.from_code(&1)))
   end
 end
