@@ -3,7 +3,7 @@ defmodule PipeConverter do
   No content here
   """
 
-  @regex ~r/(?:(?:\w+|"\w+"|%?{.+}|\[.+\])\s+\|>\s+)?[.\w]+\(.*?\)(?:\s+\|>\s+[.\w]+\(.*?\))*/
+  @regex ~r/(?:(?:[:@]?\w+|[.\w]+|".*"|%?{.*}|%\w+{.*}|(?:\w+)?\[.+\])\s+\|>\s+)?[.\w]+\(.*\)(?:\s+\|>\s+[.\w]+\(.*?\))*/x
   @doc """
   Replace relative code with callback
 
