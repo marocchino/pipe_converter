@@ -18,12 +18,13 @@ Plugin 'marocchino/pipe_converter'
 " Plug
 Plug 'marocchino/pipe_converter', { 'do': 'mix escript.build' }
 
-" minpac
-call minpac#add('marocchino/pipe_converter', { 'do': 'mix escript.build' })
-
-
-
 let g:pipe_converter_command = "~/.vim/plugged/pipe_converter/pipe_converter"
+
+" minpac
+call minpac#add('marocchino/pipe_converter', { 'do': '!mix escript.build' })
+
+let g:pipe_converter_command = "~/.vim/pack/minpac/start/pipe_converter/pipe_converter"
+
 
 
 " Change it your own keymap.
